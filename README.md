@@ -1,25 +1,78 @@
-# IFB_SO_2024_2
+README - Paralegrep
 
+Nomes dos Integrantes do Grupo
 
-# mkdir e rmdir
+Nome1 Completo
 
-## Descrição
-As funções `mkdir` e `rmdir` são usadas para criar e remover diretórios, respectivamente. Estas chamadas de sistema fazem parte da API POSIX e são fundamentais para a manipulação de arquivos e diretórios em sistemas Unix-like.
+Nome2 Completo
 
+Nome3 Completo
 
+Como Compilar o Programa
 
-# opendir e readdir
+Para compilar o programa, utilize o seguinte comando no terminal:
 
-## Descrição
-As funções `opendir` e `readdir` são usadas para abrir e ler diretórios. Elas são fundamentais para a navegação em sistemas de arquivos.
+gcc -o paralegrep paralegrep.c -lpthread
 
-# chdir e getcwd
+Este comando gera o executável paralegrep.
 
-## Descrição
-As funções `chdir` e `getcwd` são usadas para mudar e obter o diretório de trabalho atual.
+Como Executar o Programa
 
+Execute o programa no terminal, informando a palavra que deseja buscar:
 
-# link e symlink
+./paralegrep <palavra>
 
-## Descrição
-As funções `link` e `symlink` são usadas para criar links físicos e simbólicos, respectivamente, que permitem referenciar arquivos de diferentes locais.
+Exemplo de uso:
+
+./paralegrep sistemas
+
+O programa irá processar os arquivos na pasta fileset, buscar a palavra especificada e exibir o ranking dos 10 arquivos com mais ocorrências.
+
+Descrição do Funcionamento
+
+Busca nos Arquivos:
+
+O programa analisa todos os arquivos do diretório fileset, contando a quantidade de ocorrências da palavra especificada.
+
+Threads:
+
+Utiliza threads operárias para processar os arquivos em paralelo (limite de até 10 threads simultâneas).
+
+Uma thread despachante monitora o diretório fileset a cada 5 segundos e distribui arquivos novos ou modificados para as threads operárias.
+
+Ranking:
+
+Mantém um ranking global dos 10 arquivos com mais ocorrências da palavra buscada.
+
+O ranking é atualizado automaticamente ao detectar alterações no diretório fileset.
+
+Sincronização:
+
+Utiliza mutexes para proteger o acesso à estrutura de ranking e evitar condições de corrida.
+
+Estrutura de Arquivos do Projeto
+
+paralegrep.c: Arquivo principal contendo o código fonte do programa.
+
+fileset/: Diretório contendo os arquivos de texto a serem processados.
+
+Testes e Validação
+
+Antes de entregar, certifique-se de:
+
+Testar o programa com diferentes palavras e conjuntos de arquivos.
+
+Verificar vazamentos de memória usando:
+
+valgrind ./paralegrep <palavra>
+
+Garantir que o ranking exibe corretamente os 10 arquivos com mais ocorrências.
+
+Empacotamento do Projeto
+
+Para entregar o projeto, compacte os arquivos em um único arquivo .zip ou .7z com o seguinte comando:
+
+zip -r T1_SO_nome1nome2nome3.zip paralegrep/
+
+Substitua nome1, nome2 e nome3 pelos primeiros nomes dos integrantes do grupo.
+
