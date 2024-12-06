@@ -34,7 +34,7 @@ O projeto tem como objetivo criar um sistema multithread chamado Paralegrep, que
 
 Para compilar o programa, utilize o seguinte comando no terminal: 
 ````
-gcc -o paralegrep paralegrep.c -lpthread
+gcc -o paralegrep paralegrep.c 
 
 ````
 Este comando gera o executável `paralegrep`
@@ -75,15 +75,7 @@ O programa analisa todos os arquivos do diretório `fileset`, contando a quantid
 - `paralegrep.c`: Arquivo principal contendo o código fonte do programa.
 - `fileset/`: Diretório contendo os arquivos de texto a serem processados.
 
-# Teste e Validação
 
-Antes de entregar, certifique-se de: 
-- 1. Teste o programa com diferente palavra e conjuntos de arquivos
-- 2. Verificar vazamentos de memória usando:
-```
-valgrind ./paralegrep <palavra>
-```
-- 3. Garantir que o ranking exibe corretamente os 10 arquivos com mais ocorrência.
 
 ## Empacotamento do Projeto
 
