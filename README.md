@@ -33,28 +33,22 @@ O projeto tem como objetivo criar um sistema multithread chamado Paralegrep, que
 ### Como Compilar o programa
 
 Para compilar o programa, utilize o seguinte comando no terminal: 
-
 `
 gcc -o paralegrep paralegrep.c -lpthread
-
-
+`
 Este comando gera o executável paralegrep
 
 ### Como Executar o Programa
 
 Executa o programa no terminal, informando a palavra que deseja buscar: 
-
 `
 ./paralegrap <palavra>
-
-
+`
 Exemplo de uso: 
-
 `
 ./paralegrep sistemas
-
-
-O programa irá processar os arquivos na pasta fileset, buscar a palavra especificada e exibir o ranking dos 10 arquivos com mais ocorrências
+`
+O programa irá processar os arquivos na pasta fileset, buscar a palabra especificada e exibir o ranking dos 10 arquivos com mais ocorrências
 
 ## Descrição do Funcionamento
 
@@ -85,9 +79,7 @@ O programa analisa todos os arquivos do diretório fileset, contando a quantidad
 Antes de entregar, certifique-se de: 
 - 1. Teste o programa com diferente palavra e conjuntos de arquivos
 - 2. Verificar vazamentos de memória usando:
-
 valgrind ./parelegrep <palavra>
-
 
 - 3. Garantir que o ranking exibe corretamente os 10 arquivos com mais ocorrência.
 
@@ -97,3 +89,8 @@ Para entregar o projeto, compacte os arquivos em um único arquivo .zip ou 7z co
 
 `
 zip -r T1_SO_CesaerEmersonReidner.zip paralegrep/
+`
+
+
+ficou assim read.me condiz que esta pedido no 2 arquivos que te mandei
+
