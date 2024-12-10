@@ -1,4 +1,4 @@
-# Resumo do Projeto e Etapas
+# Paralegrep
 O projeto tem como objetivo criar um sistema multithread chamado Paralegrep, que busca palavras em arquivos dentro de um diretório, exibe o ranking dos 10 arquivos com mais ocorrências e monitora continuamente o diretório para atualizações.
 
 ## Estrutura Inicial do Projeto
@@ -43,20 +43,40 @@ O programa irá processar os arquivos na pasta `fileset`, buscar a palavra espec
 
 ## Descrição do Funcionamento
 ### 1.Busca nos Arquivos
-O programa analisa todos os arquivos do diretório fileset, contando a quantidade de ocorrências da palavra especificada.
+O programa analisa todos os arquivos do diretório `fileset`, contando a quantidade de ocorrências da palavra especificada.
 
 ### 2.Threads
 Utiliza threads operárias para processar os arquivos em paralelo (limite de até 10 threads simultâneas).
 Uma thread despachante monitora o diretório fileset a cada 5 segundos e distribui arquivos novos ou modificados para as threads operárias.
 ### 3.Ranking
 Mantém um ranking global dos 10 arquivos com mais ocorrências da palavra buscada.
-O ranking é atualizado automaticamente ao detectar alterações no diretório fileset.
+O ranking é atualizado automaticamente ao detectar alterações no diretório `fileset`.
 ### 4.Sincronização
 Utiliza mutexes para proteger o acesso à estrutura de ranking e evitar condições de corrida.
 ##  Estrutura de Arquivos do Projeto
 
 - `paralegrep.c`: Arquivo principal contendo o código fonte do programa.
 - `fileset/`: Diretório contendo os arquivos de texto a serem processados.
+
+## Componentes do Código 
+### 1.Função `conta_ocorrencias`
+- Descrição : Realiza a busca de uma palavra em um arquivo e retorna o número de ocorrências.
+- Detalhes Técnicos: Utiliza `fgets` para ler o arquivo linha a linha e `strstr` para localizar a palavra.
+
+### 2. Função `atualizar_ranking`
+- Descrição: Atualiza o ranking global protegendo o acesso com `mutex` para evitar condições de corrida
+- Funcionamento:
+-- Caso o ranking tenha menos de 10 arquivos, adiciona diretamente
+-- Se o ranking já possui 10 itens, substitui o arquivo com menos ocorrências, se necessários.
+-- Ordena o ranking em ordem descrescente.
+### 3 Threads Operárias `trabalho_operaria`
+- Descrição: Cada thread processa um arquivo individualmente, contando as ocorrências da palavea
+- Controle: È limitado a no máximo 10 threads simultâneas.
+
+### 4 Função `monitorar_diretorio`
+- Descrição : Verifica alterações no diretório `fileset` a cada 5 segundos utilizando a função `stat`.
+- Ação : Reprocessa os arquivos modificados ou novos e atualiza o ranking global 
+
 ## Empacotamento do Projeto
 Para entregar o projeto, compacte os arquivos em um único arquivo .zip ou 7z com o seguinte comando
 ```
