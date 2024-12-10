@@ -25,20 +25,20 @@ O projeto tem como objetivo criar um sistema multithread chamado Paralegrep, que
 - Reidner
 ## Como Compilar o programa
 Para compilar o programa, utilize o seguinte comando no terminal:
-`
+```
 gcc -o paralegrep paralegrep.c -lpthread
-`
+```
 Este comando gera o executável paralegrep
 
 ## Como Executar o Programa
 Executa o programa no terminal, informando a palavra que deseja buscar:
-`
+``` 
 ./paralegrap <palavra>
-`
+```
 Exemplo de uso:
-`
+```
 ./paralegrep sistemas
-`
+```
 O programa irá processar os arquivos na pasta `fileset`, buscar a palavra especificada e exibir o ranking dos 10 arquivos com mais ocorrências
 
 ## Descrição do Funcionamento
@@ -59,6 +59,6 @@ Utiliza mutexes para proteger o acesso à estrutura de ranking e evitar condiç�
 - `fileset/`: Diretório contendo os arquivos de texto a serem processados.
 ## Empacotamento do Projeto
 Para entregar o projeto, compacte os arquivos em um único arquivo .zip ou 7z com o seguinte comando
-`
+```
 zip -r T1_SO_CesaerEmersonReidner.zip paralegrep/
-`
+```
