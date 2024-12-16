@@ -60,7 +60,7 @@ Utiliza mutexes para proteger o acesso à estrutura de ranking e evitar condiç�
 -- Se o ranking já possui 10 itens, substitui o arquivo com menos ocorrências, se necessário.
 -- Ordena o ranking em ordem decrescente.
 -- Usa um mutex para garantir que a atualização seja feita de forma segura em ambientes de múltiplas threads.
-### 3 Threads Operárias `trabalho_operaria`
+### 3. Threads Operárias `trabalho_operaria`
 - Descrição: Cada thread processa um arquivo individualmente, contando as ocorrências da palavra
 - Funcionamento:
 -- `contar_ocorrencias` para conta as ocorrências da palavra e, sem seguida , chama `atualizar_ranking` para atualizar o ranking.
@@ -69,10 +69,10 @@ Utiliza mutexes para proteger o acesso à estrutura de ranking e evitar condiç�
 - Descrição: Lê os arquivos de um diretório e cria threads para processar até 10 arquivos simultaneamente.
 - Sincroniza as threads (com `pthread_join`) após atingir o limite de 10 threads antes de criar novas.
 
-### 5 Função `imprimir_ranking`
+### 5. Função `imprimir_ranking`
 - Descrição: Imprime o ranking atualizado dos arquivos com maior número de ocorrências da palavra.
 
-###  6 Função `monitorar_diretorio`
+###  6. Função `monitorar_diretorio`
 - Descrição : Monitora o diretório `fileset` continuamente, verificando alterações a cada 5 segundos.
 - Utiliza a função `stat` para obter informações sobre os arquivos no diretório. 
 - Reprocessa os arquivos alterados ou novos e atualiza o ranking.
