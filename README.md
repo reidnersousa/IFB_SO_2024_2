@@ -5,7 +5,7 @@ O projeto tem como objetivo criar um sistema multithread chamado Paralegrep, que
 ### O que foi feito:
 - Criada a pasta do projeto paralegrep com a subpasta fileset para armazenar os arquivos de texto.
 - Implementado o programa base em C (`paralegrep.c`).
-- Testado com um único arquivo para verificar a contagem de palavras.
+- Testado com um vários  arquivo que foram salvos na pasta (`fileset`)para verificar a contagem de palavras.
 - Implementado código para listar e processar todos os arquivos da pasta fileset.
 - Adicionada a funcionalidade para contar palavras em múltiplos arquivos, com suporte a qualquer número de arquivos.
 - Adicionadas threads operárias para processar os arquivos em paralelo (limite de até 10 threads simultâneas).
@@ -67,11 +67,11 @@ Utiliza mutexes para proteger o acesso à estrutura de ranking e evitar condiç�
 - Descrição: Atualiza o ranking global protegendo o acesso com `mutex` para evitar condições de corrida
 - Funcionamento:
 -- Caso o ranking tenha menos de 10 arquivos, adiciona diretamente
--- Se o ranking já possui 10 itens, substitui o arquivo com menos ocorrências, se necessários.
--- Ordena o ranking em ordem descrescente.
+-- Se o ranking já possui 10 itens, substitui o arquivo com menos ocorrências, se necessário.
+-- Ordena o ranking em ordem decrescente.
 ### 3 Threads Operárias `trabalho_operaria`
-- Descrição: Cada thread processa um arquivo individualmente, contando as ocorrências da palavea
-- Controle: È limitado a no máximo 10 threads simultâneas.
+- Descrição: Cada thread processa um arquivo individualmente, contando as ocorrências da palavra
+- Controle: É limitado a no máximo 10 threads simultâneas.
 
 ### 4 Função `monitorar_diretorio`
 - Descrição : Verifica alterações no diretório `fileset` a cada 5 segundos utilizando a função `stat`.
