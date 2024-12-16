@@ -1,28 +1,11 @@
 # Paralegrep
-O projeto tem como objetivo criar um sistema multithread chamado Paralegrep, que busca palavras em arquivos dentro de um diretório, exibe o ranking dos 10 arquivos com mais ocorrências e monitora continuamente o diretório para atualizações.
+O Paralegrep é um sistema multithread para busca de palavras em arquivos dentro de um diretório, que exibe o ranking dos 10 arquivos com mais ocorrências da palavra buscada. O sistema monitora continuamente o diretório para atualizações, detectando novos arquivos ou modificações nos existentes.
 
-## Estrutura Inicial do Projeto
-### O que foi feito:
-- Criada a pasta do projeto paralegrep com a subpasta fileset para armazenar os arquivos de texto.
-- Implementado o programa base em C (`paralegrep.c`).
-- Testado com um vários  arquivo que foram salvos na pasta (`fileset`)para verificar a contagem de palavras.
-- Implementado código para listar e processar todos os arquivos da pasta fileset.
-- Adicionada a funcionalidade para contar palavras em múltiplos arquivos, com suporte a qualquer número de arquivos.
-- Adicionadas threads operárias para processar os arquivos em paralelo (limite de até 10 threads simultâneas).
-- Cada thread é responsável por contar as ocorrências da palavra em um arquivo específico.
-## Estrutura de Ranking dos Arquivos
-- Implementada a estrutura de ranking global para armazenar os 10 arquivos com mais ocorrência.
-- Proteção do ranking com mutexes para evitar condições de corrida
-- Ordenação do ranking em ordem decrescente.
-- Impressão do ranking após o processamento dos arquivos.
-## Monitoramento do Diretório
-- Adicionado monitoramento contínuo do diretório fileset a cada 5 segundos.
-- Implementada verificação de alteração (novos arquivos ou modificações) usando stat.
-- Atualização automática do ranking ao detectar alterações.
 ## Integrantes do Grupo
 - Cesar
 - Emerson
 - Reidner
+
 ## Como Compilar o programa
 Para compilar o programa, utilize o seguinte comando no terminal:
 ```
@@ -41,6 +24,8 @@ Exemplo de uso:
 ```
 O programa irá processar os arquivos na pasta `fileset`, buscar a palavra especificada e exibir o ranking dos 10 arquivos com mais ocorrências
 
+
+
 ## Descrição do Funcionamento
 ### 1.Busca nos Arquivos
 O programa analisa todos os arquivos do diretório `fileset`, contando a quantidade de ocorrências da palavra especificada.
@@ -53,10 +38,15 @@ Mantém um ranking global dos 10 arquivos com mais ocorrências da palavra busca
 O ranking é atualizado automaticamente ao detectar alterações no diretório `fileset`.
 ### 4.Sincronização
 Utiliza mutexes para proteger o acesso à estrutura de ranking e evitar condições de corrida.
-##  Estrutura de Arquivos do Projeto
 
+
+
+
+## Estrutura Projeto
+### Diretórios e Arquivos:
 - `paralegrep.c`: Arquivo principal contendo o código fonte do programa.
 - `fileset/`: Diretório contendo os arquivos de texto a serem processados.
+
 
 ## Componentes do Código 
 ### 1.Função `conta_ocorrencias`
@@ -69,16 +59,42 @@ Utiliza mutexes para proteger o acesso à estrutura de ranking e evitar condiç�
 -- Caso o ranking tenha menos de 10 arquivos, adiciona diretamente
 -- Se o ranking já possui 10 itens, substitui o arquivo com menos ocorrências, se necessário.
 -- Ordena o ranking em ordem decrescente.
+-- Usa um mutex para garantir que a atualização seja feita de forma segura em ambientes de múltiplas threads.
 ### 3 Threads Operárias `trabalho_operaria`
 - Descrição: Cada thread processa um arquivo individualmente, contando as ocorrências da palavra
-- Controle: É limitado a no máximo 10 threads simultâneas.
+- Funcionamento:
+-- `contar_ocorrencias` para conta as ocorrências da palavra e, sem seguida , chama `atualizar_ranking` para atualizar o ranking.
+  
+### 4 Função `processar_diretorio_threads`
+- Descrição: Lê os arquivos de um diretório e cria threads para processar até 10 arquivos simultaneamente.
+- Sincroniza as threads (com `pthread_join`) após atingir o limite de 10 threads antes de criar novas.
 
-### 4 Função `monitorar_diretorio`
-- Descrição : Verifica alterações no diretório `fileset` a cada 5 segundos utilizando a função `stat`.
-- Ação : Reprocessa os arquivos modificados ou novos e atualiza o ranking global 
+### 5 Função `imprimir_ranking`
+- Descrição: Imprime o ranking atualizado dos arquivos com maior número de ocorrências da palavra.
 
+###  6 Função `monitorar_diretorio`
+- Descrição : Monitora o diretório `fileset` continuamente, verificando alterações a cada 5 segundos.
+- Utiliza a função `stat` para obter informações sobre os arquivos no diretório. 
+- Reprocessa os arquivos alterados ou novos e atualiza o ranking.
 ## Empacotamento do Projeto
 Para entregar o projeto, compacte os arquivos em um único arquivo .zip ou 7z com o seguinte comando
 ```
 zip -r T1_SO_CesaerEmersonReidner.zip paralegrep/
 ```
+
+## Funcionamento do Sistema
+### 1 Inicialização:
+- Ao ser Ao ser executado, o programa processa os arquivos presentes na pasta `fileset`.
+### 2 Execução Multithread:
+- Cada thread operária analisa um arquivo, contando ocorrências da palavra especificada.
+### 3 Atualização do Ranking:
+- O ranking é continuamente atualizado e exibido após cada processamento.
+### 4 Monitoramento Contínuo:
+- A cada 5 segundos, a thread despachante verifica o diretório em busca de alterações e reprocessa os arquivos quando necessário.
+
+## Conclusão
+O Paralegrep foi desenvolvido para demonstrar:
+
+- Uso eficiente de threads para processamento paralelo.
+- Sincronização de recursos compartilhados com mutexes.
+- Monitoramento dinâmico de diretórios para detectar alterações em tempo real
